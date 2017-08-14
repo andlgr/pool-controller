@@ -1,2 +1,2 @@
 # pool-controller
-Implementation of a Pool Controller in C++
+Implementation of a Swimming Pool Controller in C++

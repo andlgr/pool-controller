@@ -1,6 +1,11 @@
-# Project specific
-RemoteSystemsTempFiles/*
-.metadata/*
+# CMake
+bin
+build
+
+# Eclipse
+.settings
+Debug
+Release
 
 # Prerequisites
 *.d

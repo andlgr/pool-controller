@@ -6,8 +6,6 @@
  *     Author: Andre Reis <andre.lgr@gmail.com>
  */
 
-#include "include/common/assert/assert.h"
-
 int main(int argc, char *argv[]) {
 
   // Instantiate the_app here

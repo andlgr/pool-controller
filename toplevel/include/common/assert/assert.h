@@ -9,7 +9,7 @@
 #ifndef INCLUDE_COMMON_ASSERT_ASSERT_H
 #define INCLUDE_COMMON_ASSERT_ASSERT_H
 
-#include "include/common/error/error.h"
+#include "common/error/error.h"
 
 #define ASSERT_ERROR_NO(fcall__)                      \
 do {                                                  \

@@ -11,8 +11,8 @@
 
 #include <memory>
 
-#include "include/device/led/led_device_interface.h"
-#include "include/common/adapter/gpio/gpio_adapter_interface.h"
+#include "device/led/led_device_interface.h"
+#include "common/adapter/gpio/gpio_adapter_interface.h"
 
 class LedDeviceAdapterInterface : public virtual GpioAdapterInterface {
 };

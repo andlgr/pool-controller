@@ -6,8 +6,8 @@
  *     Author: Andre Reis <andre.lgr@gmail.com>
  */
 
-#include "include/common/assert/assert.h"
-#include "include/device/led/led_device.h"
+#include "common/assert/assert.h"
+#include "device/led/led_device.h"
 
 struct LedDevice::Impl {
   Impl(led_id_t id, std::shared_ptr<LedDeviceAdapterInterface> adapter)

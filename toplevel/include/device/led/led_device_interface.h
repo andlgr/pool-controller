@@ -9,8 +9,8 @@
 #ifndef INCLUDE_DEVICE_LED_LED_DEVICE_INTERFACE_H
 #define INCLUDE_DEVICE_LED_LED_DEVICE_INTERFACE_H
 
-#include "include/common/error/error.h"
-#include "include/device/led/led_types.h"
+#include "common/error/error.h"
+#include "device/led/led_types.h"
 
 class LedDeviceInterface {
  public:

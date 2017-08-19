@@ -23,6 +23,11 @@ class LedDevice : public LedDeviceInterface {
   virtual ~LedDevice();
 
  public:
+  /* Inherited from InitInterface */
+  virtual error_t Init();
+  virtual error_t Finish();
+
+  /* Inherited from LedDeviceInterface */
   virtual error_t SetState(led_state_t state);
   virtual error_t GetState(led_state_t *state);
   virtual const led_id_t& id();

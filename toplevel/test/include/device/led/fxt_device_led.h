@@ -16,10 +16,10 @@ class MockedLedDeviceAdapter : public LedDeviceAdapterInterface {
   MOCK_METHOD1(GetPinState, error_t(bool *state));
 };
 
-class TestDeviceLed : public testing::Test {
+class TestUtDeviceLed : public testing::Test {
  public:
-  TestDeviceLed();
-  ~TestDeviceLed();
+  TestUtDeviceLed();
+  ~TestUtDeviceLed();
 
   static void SetUpTestCase();
   static void TearDownTestCase();
@@ -28,6 +28,6 @@ class TestDeviceLed : public testing::Test {
   virtual void TearDown();
 
  protected:
-  std::shared_ptr<MockedLedDeviceAdapter> mocked_adapter_;
-  LedDevice *led_device_;
+  static std::shared_ptr<MockedLedDeviceAdapter> mocked_adapter_;
+  static LedDevice *led_device_;
 };

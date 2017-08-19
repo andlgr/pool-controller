@@ -10,9 +10,10 @@
 #define INCLUDE_DEVICE_LED_LED_DEVICE_INTERFACE_H
 
 #include "common/error/error.h"
+#include "common/init/init_interface.h"
 #include "device/led/led_types.h"
 
-class LedDeviceInterface {
+class LedDeviceInterface : public virtual InitInterface {
  public:
   virtual ~LedDeviceInterface() {};
   virtual error_t SetState(led_state_t state) = 0;

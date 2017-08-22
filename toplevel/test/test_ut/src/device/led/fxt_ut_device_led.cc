@@ -6,12 +6,12 @@
  *     Author: Andre Reis <andre.lgr@gmail.com>
  */
 
-#include "test/include/device/led/fxt_device_led.h"
+#include "test_ut/include/device/led/fxt_ut_device_led.h"
 
 using testing::Mock;
 
-std::shared_ptr<MockedLedDeviceAdapter> TestUtDeviceLed::mocked_adapter_ = nullptr;
-LedDevice *TestUtDeviceLed::led_device_ = nullptr;
+std::shared_ptr<MockedLedDeviceAdapter> TestUtDeviceLed::mocked_adapter_;
+std::unique_ptr<LedDevice> TestUtDeviceLed::led_device_;
 
 TestUtDeviceLed::TestUtDeviceLed() {
 }
@@ -21,11 +21,11 @@ TestUtDeviceLed::~TestUtDeviceLed() {
 
 void TestUtDeviceLed::SetUpTestCase() {
   mocked_adapter_.reset(new MockedLedDeviceAdapter());
-  led_device_ = new LedDevice(LED_ID_1, mocked_adapter_);
+  led_device_.reset(new LedDevice(LED_ID_1, mocked_adapter_));
 }
 
 void TestUtDeviceLed::TearDownTestCase() {
-  delete led_device_;
+  led_device_.reset();
   mocked_adapter_.reset();
 }
 

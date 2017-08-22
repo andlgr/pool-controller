@@ -22,7 +22,7 @@ typedef enum {
   ERROR_INVALID_INDEX,
 } error_t;
 
-static std::string error_to_string(error_t err) {
+static __attribute__((unused)) std::string error_to_string(error_t err) {
   switch (err) {
     case ERROR_NO:                      return std::string("ERROR_NO");
     case ERROR_FAIL:                    return std::string("ERROR_FAIL");

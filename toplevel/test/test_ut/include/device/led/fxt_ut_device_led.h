@@ -29,5 +29,5 @@ class TestUtDeviceLed : public testing::Test {
 
  protected:
   static std::shared_ptr<MockedLedDeviceAdapter> mocked_adapter_;
-  static LedDevice *led_device_;
+  static std::unique_ptr<LedDevice> led_device_;
 };

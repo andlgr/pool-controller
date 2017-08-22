@@ -12,10 +12,7 @@
 #include <memory>
 
 #include "device/led/led_device_interface.h"
-#include "common/adapter/gpio/gpio_adapter_interface.h"
-
-class LedDeviceAdapterInterface : public virtual GpioAdapterInterface {
-};
+#include "device/led/led_device_adapter_interface.h"
 
 class LedDevice : public LedDeviceInterface {
  public:

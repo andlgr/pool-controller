@@ -39,6 +39,8 @@ error_t LedDevice::Init() {
     return ERROR_INVALID_DEPENDENCY;
   }
 
+  ASSERT_ERROR_NO(impl_->adapter_->Init());
+
   ASSERT_ERROR_NO(impl_->adapter_->SetPinState(false));
   impl_->state_ = LED_STATE_OFF;
 
@@ -54,6 +56,8 @@ error_t LedDevice::Finish() {
 
   ASSERT_ERROR_NO(impl_->adapter_->SetPinState(false));
   impl_->state_ = LED_STATE_OFF;
+
+  ASSERT_ERROR_NO(impl_->adapter_->Finish());
 
   impl_->initialized_ = false;
 

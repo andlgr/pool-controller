@@ -9,6 +9,7 @@
 #include "test_ut/include/device/led/fxt_ut_device_led.h"
 
 using testing::Mock;
+using testing::Return;
 
 std::shared_ptr<MockedLedDeviceAdapter> TestUtDeviceLed::mocked_adapter_;
 std::unique_ptr<LedDevice> TestUtDeviceLed::led_device_;
@@ -30,15 +31,19 @@ void TestUtDeviceLed::TearDownTestCase() {
 }
 
 void TestUtDeviceLed::SetUp() {
+  EXPECT_CALL(*mocked_adapter_, Init())
+      .WillOnce(Return(ERROR_NO));
   EXPECT_CALL(*mocked_adapter_, SetPinState(false))
-      .WillOnce(testing::Return(ERROR_NO));
+      .WillOnce(Return(ERROR_NO));
   ASSERT_EQ(ERROR_NO, led_device_->Init());
   Mock::VerifyAndClearExpectations(mocked_adapter_.get());
 }
 
 void TestUtDeviceLed::TearDown() {
+  EXPECT_CALL(*mocked_adapter_, Finish())
+      .WillOnce(Return(ERROR_NO));
   EXPECT_CALL(*mocked_adapter_, SetPinState(false))
-      .WillOnce(testing::Return(ERROR_NO));
+      .WillOnce(Return(ERROR_NO));
   ASSERT_EQ(ERROR_NO, led_device_->Finish());
   Mock::VerifyAndClearExpectations(mocked_adapter_.get());
 }

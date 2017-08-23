@@ -10,8 +10,9 @@
 #define INCLUDE_COMMON_ADAPTER_GPIO_GPIO_ADAPTER_INTERFACE_H
 
 #include "common/error/error.h"
+#include "common/init/init_interface.h"
 
-class GpioAdapterInterface {
+class GpioAdapterInterface : public virtual InitInterface {
  public:
   virtual ~GpioAdapterInterface() {};
   virtual error_t SetPinState(bool state) = 0;

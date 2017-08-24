@@ -9,19 +9,20 @@
 #ifndef INCLUDE_COMMON_ERROR_ERROR_H
 #define INCLUDE_COMMON_ERROR_ERROR_H
 
+#include <errno.h>
 #include <string>
 
-typedef enum {
-  ERROR_NO = 0,
-  ERROR_FAIL,
-  ERROR_INIT,
-  ERROR_MALLOC,
-  ERROR_INVALID_POINTER,
-  ERROR_ALREADY,
-  ERROR_INVALID_DEPENDENCY,
-  ERROR_UNIMPLEMENTED_OPERATION,
-  ERROR_INVALID_INDEX,
-} error_t;
+typedef int error_t;
+
+#define ERROR_NO                      (-0)
+#define ERROR_FAIL                    (-1)
+#define ERROR_INIT                    (-2)
+#define ERROR_MALLOC                  (-3)
+#define ERROR_INVALID_POINTER         (-4)
+#define ERROR_ALREADY                 (-5)
+#define ERROR_INVALID_DEPENDENCY      (-6)
+#define ERROR_UNIMPLEMENTED_OPERATION (-7)
+#define ERROR_INVALID_INDEX           (-8)
 
 static __attribute__((unused)) std::string error_to_string(error_t err) {
   switch (err) {

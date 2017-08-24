@@ -1,10 +1,12 @@
 # Specify the minimum version for CMake
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.1.0)
 
 # Project's name
 project(pool-controller)
 
 # Compiling options
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
 add_compile_options(-std=c++11 -Wall -Werror -g)
 
 # Set the output folder where your program will be created
@@ -18,6 +20,7 @@ include_directories("${PROJECT_SOURCE_DIR}/toplevel/include")
 file(GLOB_RECURSE APP_SOURCES ${PROJECT_SOURCE_DIR}/toplevel/src/*.cc)
 
 add_executable(pool-controller-app ${APP_SOURCES})
+target_link_libraries(pool-controller-app Threads::Threads)
 
 # The Test
 include_directories("${PROJECT_SOURCE_DIR}/toplevel/test/")
@@ -29,4 +32,4 @@ file(GLOB_RECURSE TEST_SOURCES ${PROJECT_SOURCE_DIR}/toplevel/test/*.cc)
 file(GLOB_RECURSE TEST_LIBS ${PROJECT_SOURCE_DIR}/trd/gtest/build/*.a)
 
 add_executable(pool-controller-test ${TEST_SOURCES} ${APP_SOURCES})
-target_link_libraries(pool-controller-test ${TEST_LIBS})
+target_link_libraries(pool-controller-test Threads::Threads ${TEST_LIBS})

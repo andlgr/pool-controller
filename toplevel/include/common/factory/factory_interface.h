@@ -9,6 +9,7 @@
 #ifndef INCLUDE_COMMON_FACTORY_FACTORY_INTERFACE_H
 #define INCLUDE_COMMON_FACTORY_FACTORY_INTERFACE_H
 
+#include <memory>
 #include "common/error/error.h"
 
 template <typename ProductInterfaceT>

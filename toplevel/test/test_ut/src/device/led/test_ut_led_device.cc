@@ -1,17 +1,19 @@
 /**
  * MIT License
- * Copyright (c) 2017 Andre Reis
+ * Copyright (c) 2017 André Reis
  *
  * Created on: Aug 18, 2017
- *     Author: Andre Reis <andre.lgr@gmail.com>
+ *     Author: André Reis <andre.lgr@gmail.com>
  */
 
-#include "test_ut/include/device/led/fxt_ut_device_led.h"
+#include "test_ut/include/device/led/fxt_ut_led_device.h"
 
 using testing::Return;
 using testing::Mock;
 
-TEST_F(TestUtDeviceLed, Set_Get_State_Success) {
+namespace test_ut {
+
+TEST_F(TestUtLedDevice, Set_Get_State_Success) {
   // Check initial state
   led_state_t led_state = LED_STATE_INVALID;
   ASSERT_EQ(ERROR_NO, led_device_->GetState(&led_state));
@@ -34,7 +36,7 @@ TEST_F(TestUtDeviceLed, Set_Get_State_Success) {
   Mock::VerifyAndClearExpectations(mocked_adapter_.get());
 }
 
-TEST_F(TestUtDeviceLed, Set_Get_State_ERROR) {
+TEST_F(TestUtLedDevice, Set_Get_State_ERROR) {
   // Check initial state
   led_state_t led_state = LED_STATE_INVALID;
   ASSERT_EQ(ERROR_NO, led_device_->GetState(&led_state));
@@ -50,25 +52,25 @@ TEST_F(TestUtDeviceLed, Set_Get_State_ERROR) {
   Mock::VerifyAndClearExpectations(mocked_adapter_.get());
 }
 
-TEST_F(TestUtDeviceLed, Set_State_Fail) {
+TEST_F(TestUtLedDevice, Set_State_Fail) {
   ASSERT_EQ(ERROR_INVALID_INDEX, led_device_->SetState(LED_STATE_INVALID));
   ASSERT_EQ(ERROR_INVALID_INDEX, led_device_->SetState(LED_STATE_MAX));
 }
 
-TEST_F(TestUtDeviceLed, Set_State_Unimplemented) {
+TEST_F(TestUtLedDevice, Set_State_Unimplemented) {
   ASSERT_EQ(ERROR_UNIMPLEMENTED_OPERATION, led_device_->SetState(LED_STATE_BLINK_FAST));
   ASSERT_EQ(ERROR_UNIMPLEMENTED_OPERATION, led_device_->SetState(LED_STATE_BLINK_SLOW));
 }
 
-TEST_F(TestUtDeviceLed, Get_Id_Success) {
+TEST_F(TestUtLedDevice, Get_Id_Success) {
   ASSERT_EQ(LED_ID_1, led_device_->id());
 }
 
-TEST_F(TestUtDeviceLed, Null_Pointer) {
+TEST_F(TestUtLedDevice, Null_Pointer) {
   ASSERT_EQ(ERROR_INVALID_POINTER, led_device_->GetState(nullptr));
 }
 
-TEST_F(TestUtDeviceLed, Set_State_Twice) {
+TEST_F(TestUtLedDevice, Set_State_Twice) {
   // Check initial state
   led_state_t led_state = LED_STATE_INVALID;
   ASSERT_EQ(ERROR_NO, led_device_->GetState(&led_state));
@@ -87,11 +89,11 @@ TEST_F(TestUtDeviceLed, Set_State_Twice) {
   Mock::VerifyAndClearExpectations(mocked_adapter_.get());
 }
 
-TEST_F(TestUtDeviceLed, Init_Twice) {
+TEST_F(TestUtLedDevice, Init_Twice) {
   ASSERT_EQ(ERROR_ALREADY, led_device_->Init());
 }
 
-TEST_F(TestUtDeviceLed, Finish_Twice) {
+TEST_F(TestUtLedDevice, Finish_Twice) {
   EXPECT_CALL(*mocked_adapter_, Finish())
       .WillOnce(Return(ERROR_NO));
   EXPECT_CALL(*mocked_adapter_, SetPinState(false))
@@ -110,7 +112,7 @@ TEST_F(TestUtDeviceLed, Finish_Twice) {
   Mock::VerifyAndClearExpectations(mocked_adapter_.get());
 }
 
-TEST_F(TestUtDeviceLed, Set_State_Without_Init) {
+TEST_F(TestUtLedDevice, Set_State_Without_Init) {
   EXPECT_CALL(*mocked_adapter_, Finish())
       .WillOnce(Return(ERROR_NO));
   EXPECT_CALL(*mocked_adapter_, SetPinState(false))
@@ -129,7 +131,7 @@ TEST_F(TestUtDeviceLed, Set_State_Without_Init) {
   Mock::VerifyAndClearExpectations(mocked_adapter_.get());
 }
 
-TEST_F(TestUtDeviceLed, Get_State_Without_Init) {
+TEST_F(TestUtLedDevice, Get_State_Without_Init) {
   EXPECT_CALL(*mocked_adapter_, Finish())
       .WillOnce(Return(ERROR_NO));
   EXPECT_CALL(*mocked_adapter_, SetPinState(false))
@@ -149,7 +151,7 @@ TEST_F(TestUtDeviceLed, Get_State_Without_Init) {
   Mock::VerifyAndClearExpectations(mocked_adapter_.get());
 }
 
-TEST_F(TestUtDeviceLed, Init_Adapter_Fail) {
+TEST_F(TestUtLedDevice, Init_Adapter_Fail) {
   EXPECT_CALL(*mocked_adapter_, Finish())
       .WillOnce(Return(ERROR_NO));
   EXPECT_CALL(*mocked_adapter_, SetPinState(false))
@@ -170,7 +172,7 @@ TEST_F(TestUtDeviceLed, Init_Adapter_Fail) {
   Mock::VerifyAndClearExpectations(mocked_adapter_.get());
 }
 
-TEST_F(TestUtDeviceLed, Finish_Adapter_Fail) {
+TEST_F(TestUtLedDevice, Finish_Adapter_Fail) {
   EXPECT_CALL(*mocked_adapter_, SetPinState(false))
       .WillOnce(testing::Return(ERROR_NO));
   EXPECT_CALL(*mocked_adapter_, Finish())
@@ -181,8 +183,10 @@ TEST_F(TestUtDeviceLed, Finish_Adapter_Fail) {
   Mock::VerifyAndClearExpectations(mocked_adapter_.get());
 }
 
-TEST_F(TestUtDeviceLed, Create_Led_Device_With_Null_Adapter) {
+TEST_F(TestUtLedDevice, Create_Led_Device_With_Null_Adapter) {
   std::shared_ptr<LedDeviceAdapterInterface> adapter(nullptr);
   std::unique_ptr<LedDevice> led_device(new LedDevice(LED_ID_1, adapter));
   ASSERT_EQ(ERROR_INVALID_DEPENDENCY, led_device->Init());
 }
+
+}  // namespace test_ut

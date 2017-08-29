@@ -1,9 +1,9 @@
 /**
  * MIT License
- * Copyright (c) 2017 Andre Reis
+ * Copyright (c) 2017 André Reis
  *
  * Created on: Aug 14, 2017
- *     Author: Andre Reis <andre.lgr@gmail.com>
+ *     Author: André Reis <andre.lgr@gmail.com>
  */
 
 #ifndef INCLUDE_DEVICE_LED_LED_DEVICE_ADAPTER_INTERFACE_H

@@ -1,12 +1,14 @@
 /**
  * MIT License
- * Copyright (c) 2017 Andre Reis
+ * Copyright (c) 2017 André Reis
  *
  * Created on: Aug 22, 2017
- *     Author: Andre Reis <andre.lgr@gmail.com>
+ *     Author: André Reis <andre.lgr@gmail.com>
  */
 
 #include "test_ut/include/common/factory/fxt_ut_factory.h"
+
+namespace test_ut {
 
 TestUtFactory::TestUtFactory() {
 }
@@ -25,3 +27,5 @@ void TestUtFactory::SetUp() {
 
 void TestUtFactory::TearDown() {
 }
+
+}  // namespace test_ut

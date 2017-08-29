@@ -1,13 +1,15 @@
 /**
  * MIT License
- * Copyright (c) 2017 Andre Reis
+ * Copyright (c) 2017 André Reis
  *
  * Created on: Aug 22, 2017
- *     Author: Andre Reis <andre.lgr@gmail.com>
+ *     Author: André Reis <andre.lgr@gmail.com>
  */
 
 #ifndef TEST_UT_INCLUDE_COMMON_FACTORY_DBL_UT_FACTORY_H
 #define TEST_UT_INCLUDE_COMMON_FACTORY_DBL_UT_FACTORY_H
+
+namespace test_ut {
 
 class ProductInterface0Arg {
  public:
@@ -44,5 +46,7 @@ class Product2Arg : public ProductInterface2Arg {
   int arg1_;
   int arg2_;
 };
+
+}  // namespace test_ut
 
 #endif  // TEST_UT_INCLUDE_COMMON_FACTORY_DBL_UT_FACTORY_H

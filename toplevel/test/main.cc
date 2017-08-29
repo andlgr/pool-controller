@@ -1,9 +1,9 @@
 /**
  * MIT License
- * Copyright (c) 2017 Andre Reis
+ * Copyright (c) 2017 André Reis
  *
  * Created on: Aug 18, 2017
- *     Author: Andre Reis <andre.lgr@gmail.com>
+ *     Author: André Reis <andre.lgr@gmail.com>
  */
 
 #include "gtest/gtest.h"

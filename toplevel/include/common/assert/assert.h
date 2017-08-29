@@ -1,9 +1,9 @@
 /**
  * MIT License
- * Copyright (c) 2017 Andre Reis
+ * Copyright (c) 2017 André Reis
  *
  * Created on: Aug 14, 2017
- *     Author: Andre Reis <andre.lgr@gmail.com>
+ *     Author: André Reis <andre.lgr@gmail.com>
  */
 
 #ifndef INCLUDE_COMMON_ASSERT_ASSERT_H
@@ -19,27 +19,29 @@
 #define ANSI_COLOR_CYAN    "\x1b[36m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
 
-#define ASSERT_ERROR_NO(fcall__)                            \
-do {                                                        \
-  error_t err = ERROR_NO;                                   \
-  if (ERROR_NO != (err = fcall__)) {                        \
-    fprintf(stderr, ANSI_COLOR_RED                          \
-                    "Error calling \"%s\": %s\n"            \
-                    ANSI_COLOR_RESET,                       \
-            #fcall__, error_to_string(err).c_str());        \
-    return err;                                             \
-  }                                                         \
-} while (0);                                                \
+#define ASSERT_ERROR_NO(fcall__)                                    \
+do {                                                                \
+  error_t err = ERROR_NO;                                           \
+  if (ERROR_NO != (err = fcall__)) {                                \
+    fprintf(stderr, ANSI_COLOR_RED                                  \
+                    "[%s:%d] Error calling \"%s\": %s.\n"           \
+                    ANSI_COLOR_RESET,                               \
+            __FILE__, __LINE__,                                     \
+            #fcall__, error_to_string(err).c_str());                \
+    return err;                                                     \
+  }                                                                 \
+} while (0);                                                        \
 
-#define ASSERT_VALID_POINTER(ptr__)                         \
-do {                                                        \
-  if (nullptr == ptr__) {                                   \
-    fprintf(stderr, ANSI_COLOR_RED                          \
-                    "Invalid pointer detected in \"%s\"\n"  \
-                    ANSI_COLOR_RESET,                       \
-            #ptr__);                                        \
-    return ERROR_INVALID_POINTER;                           \
-  }                                                         \
-} while (0);                                                \
+#define ASSERT_VALID_POINTER(ptr__)                                 \
+do {                                                                \
+  if (nullptr == ptr__) {                                           \
+    fprintf(stderr, ANSI_COLOR_RED                                  \
+                    "[%s:%d] Invalid pointer detected at \"%s\".\n" \
+                    ANSI_COLOR_RESET,                               \
+            __FILE__, __LINE__,                                     \
+            #ptr__);                                                \
+    return ERROR_INVALID_POINTER;                                   \
+  }                                                                 \
+} while (0);                                                        \
 
 #endif  // INCLUDE_COMMON_ASSERT_ASSERT_H

@@ -1,36 +1,38 @@
 /**
  * MIT License
- * Copyright (c) 2017 Andre Reis
+ * Copyright (c) 2017 André Reis
  *
  * Created on: Aug 18, 2017
- *     Author: Andre Reis <andre.lgr@gmail.com>
+ *     Author: André Reis <andre.lgr@gmail.com>
  */
 
-#include "test_ut/include/device/led/fxt_ut_device_led.h"
+#include "test_ut/include/device/led/fxt_ut_led_device.h"
 
 using testing::Mock;
 using testing::Return;
 
-std::shared_ptr<MockedLedDeviceAdapter> TestUtDeviceLed::mocked_adapter_;
-std::unique_ptr<LedDevice> TestUtDeviceLed::led_device_;
+namespace test_ut {
 
-TestUtDeviceLed::TestUtDeviceLed() {
+std::shared_ptr<MockedLedDeviceAdapter> TestUtLedDevice::mocked_adapter_;
+std::unique_ptr<LedDevice> TestUtLedDevice::led_device_;
+
+TestUtLedDevice::TestUtLedDevice() {
 }
 
-TestUtDeviceLed::~TestUtDeviceLed() {
+TestUtLedDevice::~TestUtLedDevice() {
 }
 
-void TestUtDeviceLed::SetUpTestCase() {
+void TestUtLedDevice::SetUpTestCase() {
   mocked_adapter_.reset(new MockedLedDeviceAdapter());
   led_device_.reset(new LedDevice(LED_ID_1, mocked_adapter_));
 }
 
-void TestUtDeviceLed::TearDownTestCase() {
+void TestUtLedDevice::TearDownTestCase() {
   led_device_.reset();
   mocked_adapter_.reset();
 }
 
-void TestUtDeviceLed::SetUp() {
+void TestUtLedDevice::SetUp() {
   EXPECT_CALL(*mocked_adapter_, Init())
       .WillOnce(Return(ERROR_NO));
   EXPECT_CALL(*mocked_adapter_, SetPinState(false))
@@ -39,7 +41,7 @@ void TestUtDeviceLed::SetUp() {
   Mock::VerifyAndClearExpectations(mocked_adapter_.get());
 }
 
-void TestUtDeviceLed::TearDown() {
+void TestUtLedDevice::TearDown() {
   EXPECT_CALL(*mocked_adapter_, Finish())
       .WillOnce(Return(ERROR_NO));
   EXPECT_CALL(*mocked_adapter_, SetPinState(false))
@@ -47,3 +49,5 @@ void TestUtDeviceLed::TearDown() {
   ASSERT_EQ(ERROR_NO, led_device_->Finish());
   Mock::VerifyAndClearExpectations(mocked_adapter_.get());
 }
+
+}  // namespace test_ut

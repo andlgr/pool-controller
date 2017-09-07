@@ -7,8 +7,8 @@ cmake -H. -Bbuild
 cmake --build build -- -j4
 cd ../../
 
-echo "# Building Pool Controller"
 # Build Pool Controller Application
+echo "# Building Pool Controller"
 cmake -H. -Bbuild
 cmake --build build -- -j4
 

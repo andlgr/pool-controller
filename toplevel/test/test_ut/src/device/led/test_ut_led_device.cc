@@ -76,6 +76,9 @@ TEST_F(TestUtLedDevice, Set_State_Twice) {
   ASSERT_EQ(ERROR_NO, led_device_->GetState(&led_state));
   ASSERT_EQ(LED_STATE_OFF, led_state);
 
+  // Set OFF again
+  ASSERT_EQ(ERROR_ALREADY, led_device_->SetState(LED_STATE_OFF));
+
   // Set ON
   EXPECT_CALL(*mocked_adapter_, SetPinState(true))
       .WillOnce(Return(ERROR_NO));

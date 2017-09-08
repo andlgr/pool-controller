@@ -6,8 +6,8 @@
  *     Author: André Reis <andre.lgr@gmail.com>
  */
 
-#ifndef INCLUDE_DEVICE_LED_LED_TYPE_H
-#define INCLUDE_DEVICE_LED_LED_TYPE_H
+#ifndef INCLUDE_DEVICE_LED_LED_TYPES_H
+#define INCLUDE_DEVICE_LED_LED_TYPES_H
 
 typedef enum {
   LED_ID_INVALID = 0,
@@ -27,4 +27,4 @@ typedef enum {
   LED_STATE_MAX
 } led_state_t;
 
-#endif  // INCLUDE_DEVICE_LED_LED_TYPE_H
+#endif  // INCLUDE_DEVICE_LED_LED_TYPES_H

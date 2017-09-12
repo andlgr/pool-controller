@@ -15,7 +15,7 @@
 
 class WaterPumpDeviceInterface : public virtual InitInterface {
  public:
-  virtual ~WaterPumpDeviceInterface() {};
+  virtual ~WaterPumpDeviceInterface() {}
   virtual error_t TurnOn() = 0;
   virtual error_t TurnOff() = 0;
   virtual error_t GetState(bool *is_on) = 0;

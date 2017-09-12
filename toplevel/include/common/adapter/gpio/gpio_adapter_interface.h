@@ -14,7 +14,7 @@
 
 class GpioAdapterInterface : public virtual InitInterface {
  public:
-  virtual ~GpioAdapterInterface() {};
+  virtual ~GpioAdapterInterface() {}
   virtual error_t SetPinState(bool state) = 0;
   virtual error_t GetPinState(bool *state) = 0;
 };

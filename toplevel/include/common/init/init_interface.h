@@ -13,7 +13,7 @@
 
 class InitInterface {
  public:
-  virtual ~InitInterface() {};
+  virtual ~InitInterface() {}
   virtual error_t Init() = 0;
   virtual error_t Finish() = 0;
 };

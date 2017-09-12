@@ -44,4 +44,9 @@ do {                                                                \
   }                                                                 \
 } while (0);                                                        \
 
+#define ARG_FUTURE_USE(arg__)                                       \
+do {                                                                \
+  (void)arg__;                                                      \
+} while (0);                                                        \
+
 #endif  // INCLUDE_COMMON_ASSERT_ASSERT_H

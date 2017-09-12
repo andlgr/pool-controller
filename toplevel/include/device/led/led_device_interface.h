@@ -15,7 +15,7 @@
 
 class LedDeviceInterface : public virtual InitInterface {
  public:
-  virtual ~LedDeviceInterface() {};
+  virtual ~LedDeviceInterface() {}
   virtual error_t SetState(led_state_t state) = 0;
   virtual error_t GetState(led_state_t *state) = 0;
   virtual const led_id_t& id() = 0;

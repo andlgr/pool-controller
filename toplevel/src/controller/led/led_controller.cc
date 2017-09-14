@@ -11,11 +11,11 @@
 #include "controller/led/led_controller.h"
 
 struct LedController::Impl {
-  Impl() {
+  Impl()
+      : leds_() {
   }
   typedef std::map<led_id_t, std::shared_ptr<LedDeviceInterface>> led_map_t;
   typedef std::map<led_id_t, std::shared_ptr<LedDeviceInterface>>::iterator led_map_iterator_t;
-
   led_map_t leds_;
 };
 

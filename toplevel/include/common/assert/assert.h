@@ -21,8 +21,21 @@
 
 #define ASSERT_ERROR_NO(fcall__)                                    \
 do {                                                                \
-  error_t err = ERROR_NO;                                           \
-  if (ERROR_NO != (err = fcall__)) {                                \
+  error_t err = fcall__;                                            \
+  if (ERROR_NO != err) {                                            \
+    fprintf(stderr, ANSI_COLOR_RED                                  \
+                    "[%s:%d] Error calling \"%s\": %s.\n"           \
+                    ANSI_COLOR_RESET,                               \
+            __FILE__, __LINE__,                                     \
+            #fcall__, error_to_string(err).c_str());                \
+    return err;                                                     \
+  }                                                                 \
+} while (0);                                                        \
+
+#define ASSERT_ERROR_NO_ALREADY(fcall__)                            \
+do {                                                                \
+  error_t err = fcall__;                                            \
+  if ((ERROR_NO != err) && (ERROR_ALREADY != err)) {                \
     fprintf(stderr, ANSI_COLOR_RED                                  \
                     "[%s:%d] Error calling \"%s\": %s.\n"           \
                     ANSI_COLOR_RESET,                               \

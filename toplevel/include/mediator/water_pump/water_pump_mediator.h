@@ -16,10 +16,6 @@ class WaterPumpMediator : public WaterPumpMediatorInterface {
   explicit WaterPumpMediator();
   virtual ~WaterPumpMediator();
 
-  /* Inherited from InitInterface */
-  virtual error_t Init();
-  virtual error_t Finish();
-
   /* Inherited from WaterPumpMediatorInterface */
   virtual error_t Activate(water_pump_id_t id);
   virtual error_t Deactivate();

@@ -11,11 +11,10 @@
 
 #include <memory>
 #include "common/error/error.h"
-#include "common/init/init_interface.h"
 #include "device/water_pump/water_pump_types.h"
 #include "device/water_pump/water_pump_device_interface.h"
 
-class WaterPumpMediatorInterface : public virtual InitInterface {
+class WaterPumpMediatorInterface {
  public:
   virtual ~WaterPumpMediatorInterface() {}
 

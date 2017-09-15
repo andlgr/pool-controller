@@ -7,18 +7,21 @@
  */
 
 #include <map>
+#include "common/mutex/mutex.h"
 #include "common/assert/assert.h"
 #include "mediator/water_pump/water_pump_mediator.h"
 
 struct WaterPumpMediator::Impl {
   Impl()
       : active_pump_(WATER_PUMP_NONE),
-        water_pumps_() {
+        water_pumps_(),
+        recursive_mutex_() {
   };
   typedef std::map<water_pump_id_t, std::shared_ptr<WaterPumpDeviceInterface>> water_pump_t;
   typedef std::map<water_pump_id_t, std::shared_ptr<WaterPumpDeviceInterface>>::iterator water_pump_map_iterator_t;
   water_pump_id_t active_pump_;
   water_pump_t water_pumps_;
+  std::recursive_timed_mutex recursive_mutex_;
 };
 
 WaterPumpMediator::WaterPumpMediator()
@@ -30,6 +33,8 @@ WaterPumpMediator::~WaterPumpMediator() {
 }
 
 error_t WaterPumpMediator::Activate(water_pump_id_t id) {
+  recursive_lock(impl_->recursive_mutex_);
+
   if (id == impl_->active_pump_) {
     return ERROR_ALREADY;
   }
@@ -53,6 +58,8 @@ error_t WaterPumpMediator::Activate(water_pump_id_t id) {
 }
 
 error_t WaterPumpMediator::Deactivate() {
+  recursive_lock(impl_->recursive_mutex_);
+
   if (WATER_PUMP_NONE == impl_->active_pump_) {
     return ERROR_ALREADY;
   }
@@ -74,12 +81,15 @@ error_t WaterPumpMediator::Deactivate() {
 
 error_t WaterPumpMediator::GetActive(water_pump_id_t *active_id) {
   ASSERT_VALID_POINTER(active_id);
+  recursive_lock(impl_->recursive_mutex_);
   *active_id = impl_->active_pump_;
   return ERROR_NO;
 }
 
 error_t WaterPumpMediator::RegisterWaterPumpDevice(std::shared_ptr<WaterPumpDeviceInterface> water_pump_device) {
   ASSERT_VALID_POINTER(water_pump_device.get());
+
+  recursive_lock(impl_->recursive_mutex_);
 
   Impl::water_pump_map_iterator_t it;
 
@@ -97,6 +107,8 @@ error_t WaterPumpMediator::RegisterWaterPumpDevice(std::shared_ptr<WaterPumpDevi
 }
 
 error_t WaterPumpMediator::UnregisterWaterPumpDevice(water_pump_id_t id) {
+  recursive_lock(impl_->recursive_mutex_);
+
   Impl::water_pump_map_iterator_t it;
 
   it = impl_->water_pumps_.find(id);

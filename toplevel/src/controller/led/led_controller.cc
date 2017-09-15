@@ -13,7 +13,8 @@
 
 struct LedController::Impl {
   Impl()
-      : leds_() {
+      : leds_(),
+        mutex_() {
   }
   typedef std::map<led_id_t, std::shared_ptr<LedDeviceInterface>> led_map_t;
   typedef std::map<led_id_t, std::shared_ptr<LedDeviceInterface>>::iterator led_map_iterator_t;

@@ -7,6 +7,7 @@
  */
 
 #include <map>
+#include "common/mutex/mutex.h"
 #include "common/assert/assert.h"
 #include "controller/led/led_controller.h"
 
@@ -17,6 +18,7 @@ struct LedController::Impl {
   typedef std::map<led_id_t, std::shared_ptr<LedDeviceInterface>> led_map_t;
   typedef std::map<led_id_t, std::shared_ptr<LedDeviceInterface>>::iterator led_map_iterator_t;
   led_map_t leds_;
+  std::shared_timed_mutex mutex_;
 };
 
 LedController::LedController()
@@ -28,6 +30,8 @@ LedController::~LedController() {
 }
 
 error_t LedController::SetState(led_id_t id, led_state_t state) {
+  write_lock(impl_->mutex_);
+
   Impl::led_map_iterator_t it;
 
   it = impl_->leds_.find(id);
@@ -44,6 +48,8 @@ error_t LedController::SetState(led_id_t id, led_state_t state) {
 
 error_t LedController::GetState(led_id_t id, led_state_t *state) {
   ASSERT_VALID_POINTER(state);
+
+  read_lock(impl_->mutex_);
 
   Impl::led_map_iterator_t it;
 
@@ -62,6 +68,8 @@ error_t LedController::GetState(led_id_t id, led_state_t *state) {
 error_t LedController::RegisterLedDevice(std::shared_ptr<LedDeviceInterface> led_device) {
   ASSERT_VALID_POINTER(led_device.get());
 
+  write_lock(impl_->mutex_);
+
   Impl::led_map_iterator_t it;
 
   it = impl_->leds_.find(led_device->id());
@@ -78,6 +86,8 @@ error_t LedController::RegisterLedDevice(std::shared_ptr<LedDeviceInterface> led
 }
 
 error_t LedController::UnregisterLedDevice(led_id_t id) {
+  write_lock(impl_->mutex_);
+
   Impl::led_map_iterator_t it;
 
   it = impl_->leds_.find(id);

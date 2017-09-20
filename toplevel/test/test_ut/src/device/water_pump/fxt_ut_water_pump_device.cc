@@ -24,7 +24,7 @@ TestUtWaterPumpDevice::~TestUtWaterPumpDevice() {
 
 void TestUtWaterPumpDevice::SetUpTestCase() {
   mocked_adapter_.reset(new MockedWaterPumpDeviceAdapter());
-  water_pump_device_.reset(new WaterPumpDevice(WATER_PUMP_FILTER, mocked_adapter_));
+  water_pump_device_.reset(new WaterPumpDevice(WATER_PUMP_ID_FILTER, mocked_adapter_));
 }
 
 void TestUtWaterPumpDevice::TearDownTestCase() {

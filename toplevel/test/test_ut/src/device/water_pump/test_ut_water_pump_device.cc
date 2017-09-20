@@ -53,7 +53,7 @@ TEST_F(TestUtWaterPumpDevice, Set_Get_State_ERROR) {
 }
 
 TEST_F(TestUtWaterPumpDevice, Get_Id_Success) {
-  ASSERT_EQ(WATER_PUMP_FILTER, water_pump_device_->id());
+  ASSERT_EQ(WATER_PUMP_ID_FILTER, water_pump_device_->id());
 }
 
 TEST_F(TestUtWaterPumpDevice, Null_Pointer) {
@@ -178,7 +178,7 @@ TEST_F(TestUtWaterPumpDevice, Finish_Adapter_Fail) {
 
 TEST_F(TestUtWaterPumpDevice, Create_WaterPump_Device_With_Null_Adapter) {
   std::shared_ptr<WaterPumpDeviceAdapterInterface> adapter(nullptr);
-  std::unique_ptr<WaterPumpDevice> water_pump_device(new WaterPumpDevice(WATER_PUMP_FILTER, adapter));
+  std::unique_ptr<WaterPumpDevice> water_pump_device(new WaterPumpDevice(WATER_PUMP_ID_FILTER, adapter));
   ASSERT_EQ(ERROR_INVALID_DEPENDENCY, water_pump_device->Init());
 }
 

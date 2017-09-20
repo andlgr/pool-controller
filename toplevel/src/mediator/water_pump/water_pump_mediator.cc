@@ -13,7 +13,7 @@
 
 struct WaterPumpMediator::Impl {
   Impl()
-      : active_pump_(WATER_PUMP_NONE),
+      : active_pump_(WATER_PUMP_ID_NONE),
         water_pumps_(),
         recursive_mutex_() {
   };
@@ -60,7 +60,7 @@ error_t WaterPumpMediator::Activate(water_pump_id_t id) {
 error_t WaterPumpMediator::Deactivate() {
   recursive_lock(impl_->recursive_mutex_);
 
-  if (WATER_PUMP_NONE == impl_->active_pump_) {
+  if (WATER_PUMP_ID_NONE == impl_->active_pump_) {
     return ERROR_ALREADY;
   }
 
@@ -74,7 +74,7 @@ error_t WaterPumpMediator::Deactivate() {
 
   ASSERT_VALID_POINTER(it->second);
   ASSERT_ERROR_NO(it->second->TurnOff());
-  impl_->active_pump_ = WATER_PUMP_NONE;
+  impl_->active_pump_ = WATER_PUMP_ID_NONE;
 
   return ERROR_NO;
 }
@@ -123,7 +123,7 @@ error_t WaterPumpMediator::UnregisterWaterPumpDevice(water_pump_id_t id) {
   impl_->water_pumps_.erase(it);
 
   if (id == impl_->active_pump_) {
-    impl_->active_pump_ = WATER_PUMP_NONE;
+    impl_->active_pump_ = WATER_PUMP_ID_NONE;
   }
 
   return ERROR_NO;

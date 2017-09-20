@@ -18,18 +18,18 @@ TEST_F(TestUtWaterPumpMediator, Activate_Deactivate_Success) {
 
   // Prepare Mediator
   std::shared_ptr<WaterPumpDeviceAdapterInterface> adapter_heater(new NiceMock<MockedWaterPumpDeviceAdapter>);
-  std::shared_ptr<WaterPumpDeviceInterface> water_pump_heater(new WaterPumpDevice(WATER_PUMP_HEATER, adapter_heater));
+  std::shared_ptr<WaterPumpDeviceInterface> water_pump_heater(new WaterPumpDevice(WATER_PUMP_ID_HEATER, adapter_heater));
 
   std::shared_ptr<WaterPumpDeviceAdapterInterface> adapter_filter(new NiceMock<MockedWaterPumpDeviceAdapter>);
-  std::shared_ptr<WaterPumpDeviceInterface> water_pump_filter(new WaterPumpDevice(WATER_PUMP_FILTER, adapter_filter));
+  std::shared_ptr<WaterPumpDeviceInterface> water_pump_filter(new WaterPumpDevice(WATER_PUMP_ID_FILTER, adapter_filter));
 
   ASSERT_EQ(ERROR_NO, water_pump_mediator_->RegisterWaterPumpDevice(water_pump_heater));
   ASSERT_EQ(ERROR_NO, water_pump_mediator_->RegisterWaterPumpDevice(water_pump_filter));
 
   // Perform the test
-  ASSERT_EQ(ERROR_NO, water_pump_mediator_->Activate(WATER_PUMP_HEATER));
+  ASSERT_EQ(ERROR_NO, water_pump_mediator_->Activate(WATER_PUMP_ID_HEATER));
   ASSERT_EQ(ERROR_NO, water_pump_mediator_->GetActive(&active_pump));
-  ASSERT_EQ(WATER_PUMP_HEATER, active_pump);
+  ASSERT_EQ(WATER_PUMP_ID_HEATER, active_pump);
 
   // Check mediator letting only one pump active at time
   state = false;
@@ -39,9 +39,9 @@ TEST_F(TestUtWaterPumpMediator, Activate_Deactivate_Success) {
   ASSERT_FALSE(state);
 
   // Test activation uniqueness
-  ASSERT_EQ(ERROR_NO, water_pump_mediator_->Activate(WATER_PUMP_FILTER));
+  ASSERT_EQ(ERROR_NO, water_pump_mediator_->Activate(WATER_PUMP_ID_FILTER));
   ASSERT_EQ(ERROR_NO, water_pump_mediator_->GetActive(&active_pump));
-  ASSERT_EQ(WATER_PUMP_FILTER, active_pump);
+  ASSERT_EQ(WATER_PUMP_ID_FILTER, active_pump);
 
   // Check mediator letting only one pump active at time
   state = true;
@@ -62,12 +62,12 @@ TEST_F(TestUtWaterPumpMediator, Activate_Deactivate_Success) {
   ASSERT_FALSE(state);
 
   // Unregister WaterPump Devices
-  ASSERT_EQ(ERROR_NO, water_pump_mediator_->UnregisterWaterPumpDevice(WATER_PUMP_HEATER));
-  ASSERT_EQ(ERROR_NO, water_pump_mediator_->UnregisterWaterPumpDevice(WATER_PUMP_FILTER));
+  ASSERT_EQ(ERROR_NO, water_pump_mediator_->UnregisterWaterPumpDevice(WATER_PUMP_ID_HEATER));
+  ASSERT_EQ(ERROR_NO, water_pump_mediator_->UnregisterWaterPumpDevice(WATER_PUMP_ID_FILTER));
 }
 
 TEST_F(TestUtWaterPumpMediator, Activate_Invalid_Index) {
-  ASSERT_EQ(ERROR_INVALID_INDEX, water_pump_mediator_->Activate(WATER_PUMP_FILTER));
+  ASSERT_EQ(ERROR_INVALID_INDEX, water_pump_mediator_->Activate(WATER_PUMP_ID_FILTER));
 }
 
 TEST_F(TestUtWaterPumpMediator, Null_Pointer) {
@@ -77,15 +77,15 @@ TEST_F(TestUtWaterPumpMediator, Null_Pointer) {
 
 TEST_F(TestUtWaterPumpMediator, Register_Unregister_Water_Pump_Device_Success) {
   std::shared_ptr<WaterPumpDeviceAdapterInterface> adapter1(new NiceMock<MockedWaterPumpDeviceAdapter>);
-  std::shared_ptr<WaterPumpDeviceInterface> water_pump1(new WaterPumpDevice(WATER_PUMP_FILTER, adapter1));
+  std::shared_ptr<WaterPumpDeviceInterface> water_pump1(new WaterPumpDevice(WATER_PUMP_ID_FILTER, adapter1));
 
   ASSERT_EQ(ERROR_NO, water_pump_mediator_->RegisterWaterPumpDevice(water_pump1));
-  ASSERT_EQ(ERROR_NO, water_pump_mediator_->UnregisterWaterPumpDevice(WATER_PUMP_FILTER));
+  ASSERT_EQ(ERROR_NO, water_pump_mediator_->UnregisterWaterPumpDevice(WATER_PUMP_ID_FILTER));
 }
 
 TEST_F(TestUtWaterPumpMediator, Register_Water_Pump_Device_Twice) {
   std::shared_ptr<WaterPumpDeviceAdapterInterface> adapter1(new NiceMock<MockedWaterPumpDeviceAdapter>);
-  std::shared_ptr<WaterPumpDeviceInterface> water_pump1(new WaterPumpDevice(WATER_PUMP_FILTER, adapter1));
+  std::shared_ptr<WaterPumpDeviceInterface> water_pump1(new WaterPumpDevice(WATER_PUMP_ID_FILTER, adapter1));
 
   ASSERT_EQ(ERROR_NO, water_pump_mediator_->RegisterWaterPumpDevice(water_pump1));
   ASSERT_EQ(ERROR_BUSY, water_pump_mediator_->RegisterWaterPumpDevice(water_pump1));
@@ -93,11 +93,11 @@ TEST_F(TestUtWaterPumpMediator, Register_Water_Pump_Device_Twice) {
 
 TEST_F(TestUtWaterPumpMediator, Unregister_Water_Pump_Device_Twice) {
   std::shared_ptr<WaterPumpDeviceAdapterInterface> adapter1(new NiceMock<MockedWaterPumpDeviceAdapter>);
-  std::shared_ptr<WaterPumpDeviceInterface> water_pump1(new WaterPumpDevice(WATER_PUMP_FILTER, adapter1));
+  std::shared_ptr<WaterPumpDeviceInterface> water_pump1(new WaterPumpDevice(WATER_PUMP_ID_FILTER, adapter1));
   ASSERT_EQ(ERROR_NO, water_pump_mediator_->RegisterWaterPumpDevice(water_pump1));
 
-  ASSERT_EQ(ERROR_NO, water_pump_mediator_->UnregisterWaterPumpDevice(WATER_PUMP_FILTER));
-  ASSERT_EQ(ERROR_INVALID_INDEX, water_pump_mediator_->UnregisterWaterPumpDevice(WATER_PUMP_FILTER));
+  ASSERT_EQ(ERROR_NO, water_pump_mediator_->UnregisterWaterPumpDevice(WATER_PUMP_ID_FILTER));
+  ASSERT_EQ(ERROR_INVALID_INDEX, water_pump_mediator_->UnregisterWaterPumpDevice(WATER_PUMP_ID_FILTER));
 }
 
 }  // namespace test_ut

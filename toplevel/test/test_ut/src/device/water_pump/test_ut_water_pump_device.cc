@@ -17,21 +17,21 @@ TEST_F(TestUtWaterPumpDevice, Set_Get_State_Success) {
   // Check initial state
   bool water_pump_state = false;
   ASSERT_EQ(ERROR_NO, water_pump_device_->GetState(&water_pump_state));
-  ASSERT_EQ(false, water_pump_state);
+  ASSERT_FALSE(water_pump_state);
 
   // Test ON
   EXPECT_CALL(*mocked_adapter_, SetPinState(true))
       .WillOnce(Return(ERROR_NO));
   ASSERT_EQ(ERROR_NO, water_pump_device_->TurnOn());
   ASSERT_EQ(ERROR_NO, water_pump_device_->GetState(&water_pump_state));
-  ASSERT_EQ(true, water_pump_state);
+  ASSERT_TRUE(water_pump_state);
 
   // Test OFF
   EXPECT_CALL(*mocked_adapter_, SetPinState(false))
       .WillOnce(Return(ERROR_NO));
   ASSERT_EQ(ERROR_NO, water_pump_device_->TurnOff());
   ASSERT_EQ(ERROR_NO, water_pump_device_->GetState(&water_pump_state));
-  ASSERT_EQ(false, water_pump_state);
+  ASSERT_FALSE(water_pump_state);
 
   Mock::VerifyAndClearExpectations(mocked_adapter_.get());
 }
@@ -40,14 +40,14 @@ TEST_F(TestUtWaterPumpDevice, Set_Get_State_ERROR) {
   // Check initial state
   bool water_pump_state = false;
   ASSERT_EQ(ERROR_NO, water_pump_device_->GetState(&water_pump_state));
-  ASSERT_EQ(false, water_pump_state);
+  ASSERT_FALSE(water_pump_state);
 
   // Test ON
   EXPECT_CALL(*mocked_adapter_, SetPinState(true))
       .WillOnce(Return(ERROR_FAIL));
   ASSERT_EQ(ERROR_FAIL, water_pump_device_->TurnOn());
   ASSERT_EQ(ERROR_NO, water_pump_device_->GetState(&water_pump_state));
-  ASSERT_EQ(false, water_pump_state);
+  ASSERT_FALSE(water_pump_state);
 
   Mock::VerifyAndClearExpectations(mocked_adapter_.get());
 }
@@ -64,7 +64,7 @@ TEST_F(TestUtWaterPumpDevice, Set_State_Twice) {
   // Check initial state
   bool water_pump_state = false;
   ASSERT_EQ(ERROR_NO, water_pump_device_->GetState(&water_pump_state));
-  ASSERT_EQ(false, water_pump_state);
+  ASSERT_FALSE(water_pump_state);
 
   // Set OFF again
   ASSERT_EQ(ERROR_ALREADY, water_pump_device_->TurnOff());
@@ -74,7 +74,7 @@ TEST_F(TestUtWaterPumpDevice, Set_State_Twice) {
       .WillOnce(Return(ERROR_NO));
   ASSERT_EQ(ERROR_NO, water_pump_device_->TurnOn());
   ASSERT_EQ(ERROR_NO, water_pump_device_->GetState(&water_pump_state));
-  ASSERT_EQ(true, water_pump_state);
+  ASSERT_TRUE(water_pump_state);
 
   // Set ON again
   ASSERT_EQ(ERROR_ALREADY, water_pump_device_->TurnOn());

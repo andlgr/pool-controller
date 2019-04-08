@@ -6,6 +6,7 @@ bin
 build
 
 # Eclipse
+.cproject
 .settings
 Debug
 Release

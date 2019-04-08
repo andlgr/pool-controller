@@ -16,8 +16,8 @@ TEST_F(TestUtFactory, Create_Product_0_Arguments) {
   ASSERT_EQ(nullptr, product.get());
   // Factory
   std::unique_ptr<
-      FactoryInterface0Arg<ProductInterface0Arg> > factory;
-  factory.reset(new Factory0Arg<ProductInterface0Arg, Product0Arg>());
+      FactoryInterface<ProductInterface0Arg> > factory;
+  factory.reset(new Factory<ProductInterface0Arg, Product0Arg>());
   // Create Product using Factory
   ASSERT_EQ(ERROR_NO, factory->Create(product));
   ASSERT_NE(nullptr, product.get());
@@ -30,8 +30,8 @@ TEST_F(TestUtFactory, Create_Product_1_Arguments) {
   ASSERT_EQ(nullptr, product.get());
   // Factory
   std::unique_ptr<
-      FactoryInterface1Arg<ProductInterface1Arg, int> > factory;
-  factory.reset(new Factory1Arg<ProductInterface1Arg, Product1Arg, int>());
+      FactoryInterface<ProductInterface1Arg, int> > factory;
+  factory.reset(new Factory<ProductInterface1Arg, Product1Arg, int>());
   // Create Product using Factory
   ASSERT_EQ(ERROR_NO, factory->Create(product, expected_arg1));
   ASSERT_NE(nullptr, product.get());
@@ -47,8 +47,8 @@ TEST_F(TestUtFactory, Create_Product_2_Arguments) {
   ASSERT_EQ(nullptr, product.get());
   // Factory
   std::unique_ptr<
-      FactoryInterface2Arg<ProductInterface2Arg, int, int> > factory;
-  factory.reset(new Factory2Arg<ProductInterface2Arg, Product2Arg, int, int>());
+      FactoryInterface<ProductInterface2Arg, int, int> > factory;
+  factory.reset(new Factory<ProductInterface2Arg, Product2Arg, int, int>());
   // Create Product using Factory
   ASSERT_EQ(ERROR_NO, factory->Create(product, expected_arg1, expected_arg2));
   ASSERT_NE(nullptr, product.get());

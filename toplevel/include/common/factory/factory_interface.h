@@ -12,28 +12,11 @@
 #include <memory>
 #include "common/error/error.h"
 
-template <typename ProductInterfaceT>
-class FactoryInterface0Arg {
+template <typename ProductInterfaceT, typename ... Args>
+class FactoryInterface {
  public:
-  virtual ~FactoryInterface0Arg() {}
-  virtual error_t Create(std::shared_ptr<ProductInterfaceT>& created) = 0;
-};
-
-template <typename ProductInterfaceT,
-          typename Arg1T>
-class FactoryInterface1Arg {
- public:
-  virtual ~FactoryInterface1Arg() {}
-  virtual error_t Create(std::shared_ptr<ProductInterfaceT>& created, Arg1T arg1) = 0;
-};
-
-template <typename ProductInterfaceT,
-          typename Arg1T,
-          typename Arg2T>
-class FactoryInterface2Arg {
- public:
-  virtual ~FactoryInterface2Arg() {}
-  virtual error_t Create(std::shared_ptr<ProductInterfaceT>& created, Arg1T arg1, Arg2T arg2) = 0;
+  virtual ~FactoryInterface() {}
+  virtual error_t Create(std::shared_ptr<ProductInterfaceT>& created, Args ... args) = 0;
 };
 
 #endif  // INCLUDE_COMMON_FACTORY_FACTORY_INTERFACE_H
